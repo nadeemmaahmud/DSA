@@ -45,40 +45,36 @@ def merge_sort(lst):
 
     mid = ln // 2
 
-    left_list = lst[:mid]
-    right_list = lst[mid:]
+    left = lst[:mid]
+    right = lst[mid:]
 
-    left_list = merge_sort(left_list)
-    right_list = merge_sort(right_list)
-
-    ln_l = len(left_list)
-    ln_r = len(right_list)
+    L = merge_sort(left)
+    R = merge_sort(right)
 
     n_lst = [0] * ln
-    l, r, i = 0, 0, 0
+    i, l, r = 0, 0, 0
 
-
-    while l < ln_l and r < ln_r:
-        if left_list[l] <= right_list[r]:
-            n_lst[i] = left_list[l]
+    while l < len(left) and r < len(right):
+        if L[l] < R[r]:
+            n_lst[i] = L[l]
             l += 1
         else:
-            n_lst[i] = right_list[r]
+            n_lst[i] = R[r]
             r += 1
 
         i += 1
 
-    while l < ln_l:
-        n_lst[i] = left_list[l]
+    while l < len(left):
+        n_lst[i] = L[l]
         l += 1
         i += 1
 
-    while r < ln_r:
-        n_lst[i] = right_list[r]
+    while r < len(right):
+        n_lst[i] = R[r]
         r += 1
         i += 1
 
-    return n_lst
+    return  n_lst
 
 print("----------Merge Sort----------")
 
@@ -90,8 +86,8 @@ print("After sorting:", my_new_list)
 
 # quick sort t: O(N log N)/O(N*N) in worst case if list is already sorted - s: O(N)
 def partition(arr, low, high):
-    i = low - 1
     pivot = arr[high]
+    i = low-1
 
     for j in range(low, high):
         if arr[j] < pivot:
@@ -104,14 +100,14 @@ def partition(arr, low, high):
 
 def quick_sort(arr, low, high):
     if len(arr) <= 1:
-        return arr
+        return  arr
 
     if low < high:
         pi = partition(arr, low, high)
 
-        quick_sort(arr, low, pi-1)
-
         quick_sort(arr, pi+1, high)
+
+        quick_sort(arr, low, pi-1)
 
 print("----------Quick Sort----------")
 
